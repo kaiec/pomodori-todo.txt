@@ -15,6 +15,8 @@ A pomodoro counter implementation for [Todo.txt](http://todotxt.com/).
 * run `gem install rainbow terminal-notifier`
 * Download this repo somewhere on your filesystem
 * symlink the `pom` executable into your TODO_ACTIONS_DIR
+* optionally set environment variable POMODORO_SECONDS to the length of
+  a pomodoro session. Defaults to 1500 (25 minutes).
 
 ## Usage:
 
@@ -41,7 +43,7 @@ Add `set -g status-right "#(cat ~/.pomo.txt.tmux)"` to your `.tmux.conf`. This
 will put the time remaining in the current pomodoro in the right side of your
 status bar. See `man tmux` for further details on customizing this status.
 
-## i3blocks integration
+## i3blocks integration:
 
 Set environment variables to configure process signalling:
 
