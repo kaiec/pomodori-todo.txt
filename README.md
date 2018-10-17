@@ -40,3 +40,28 @@ A pomodoro counter implementation for [Todo.txt](http://todotxt.com/).
 Add `set -g status-right "#(cat ~/.pomo.txt.tmux)"` to your `.tmux.conf`. This
 will put the time remaining in the current pomodoro in the right side of your
 status bar. See `man tmux` for further details on customizing this status.
+
+## i3blocks integration
+
+Set environment variables to configure process signalling:
+
+```
+POMODORO_SIG_SIGNAL=3
+POMODORO_SIG_PROCESS=i3blocks
+```
+
+Now when pom is invoked and every second when a timer is running, 
+signal 3 is sent to the i3blocks process. 
+
+A possible blocklet looks like this (it uses the tmux integration):
+
+```
+#!/bin/bash
+if [ -f ~/.pomo.txt.tmux ] && [ "$(($(date +%s) - $(date +%s -r ~/.pomo.txt.tmux)))" -lt 3 ]
+then
+        echo -n  $(cat ~/Documents/pomodoro_log.txt | tail -n1 | sed 's/.* \(started\|completed\):[ ]\+[0-9]*-[0-9]*-[0-9]*//' | xargs)
+        echo " | $(cat ~/.pomo.txt.tmux)"
+else
+        echo ""
+fi
+```
